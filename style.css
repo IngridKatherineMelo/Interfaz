@@ -1,0 +1,54 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+
+*{
+margin: 0px;
+padding: 0px;
+}
+.calculadora{
+display:block;
+margin:0 auto;
+padding:20px;
+margin-top: 100px;
+width:340px;
+height:500px;
+border-radius: 5%;
+}
+
+.calculadora td button{
+display:block;
+width:70px;
+height: 70px;
+font-size: 25px;
+margin: 2px;
+}
+
+#resultado{
+display:block;
+text-align: center;
+font-size: 30px;
+font-family: Arial,Helvetica;
+margin-bottom: 50px;
+width:300px;
+height: 100px;
+line-height: 100px;
+background-color:#fff;
+border-radius: 5%;
+}
+.col1{
+font-size: 30px;
+font-family: Arial,Helvetica;
+color: white;
+border: 0px;
+background: #FF5733;
+width: 80px;
+height: 80px;
+}
+.col2{
+font-size: 30px;
+font-family: Arial,Helvetica;
+color: white;
+border: 0px;
+background: #00BFFF;
+width: 80px;
+height: 80px;
+}
