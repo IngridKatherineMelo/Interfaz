@@ -21,14 +21,24 @@ function init() {
     let nueve = document.getElementById("nueve");
     let cero = document.getElementById("cero");
     let igual = document.getElementById("igual");
+    let punto = document.getElementById("punto");
+    let sin = document.getElementById("sin");
+    let cos = document.getElementById("cos");
+    let tan = document.getElementById("tan");
+    let sqrt = document.getElementById("sqrt");
+    let log = document.getElementById("log");
+    let ln = document.getElementById("ln");
+    let pi = document.getElementById("pi");
+    let e = document.getElementById("e");
+    let parentesis = document.getElementById("parentesis");
+    let parentesis2 = document.getElementById("parentesis2");
 
-    //Eventos
-
+    // Eventos
     uno.onclick = function (e) {
-    resultado.textContent = resultado.textContent + "1";
+        resultado.textContent = resultado.textContent + "1";
     }
     dos.onclick = function (e) {
-    resultado.textContent = resultado.textContent + "2";
+        resultado.textContent = resultado.textContent + "2";
     }
     tres.onclick = function (e) {
         resultado.textContent = resultado.textContent + "3";
@@ -54,8 +64,44 @@ function init() {
     cero.onclick = function (e) {
         resultado.textContent = resultado.textContent + "0";
     }
+    parentesis.onclick = function (e) {
+        resultado.textContent = resultado.textContent + "(";
+    }
+    parentesis2.onclick = function (e) {
+        resultado.textContent = resultado.textContent + ")";
+    }   
+    punto.onclick = function (e) {
+        if (!resultado.textContent.includes(".")) {
+            resultado.textContent = resultado.textContent + ".";
+        }
+    }
     reset.onclick = function (e) {
         limpiar();
+    }
+
+    sin.onclick = function (e) {
+        calcularFuncion("sin");
+    }
+    cos.onclick = function (e) {
+        calcularFuncion("cos");
+    }
+    tan.onclick = function (e) {
+        calcularFuncion("tan");
+    }
+    sqrt.onclick = function (e) {
+        calcularFuncion("sqrt");
+    }
+    log.onclick = function (e) {
+        calcularFuncion("log");
+    }
+    ln.onclick = function (e) {
+        calcularFuncion("ln");
+    }
+    pi.onclick = function (e) {
+        resultado.textContent = Math.PI;
+    }
+    e.onclick = function (e) {
+        resultado.textContent = Math.E;
     }
 
     suma.onclick = function (e) {
@@ -64,8 +110,13 @@ function init() {
         limpiar();
     }
     igual.onclick = function (e) {
-        operandob = parseFloat(resultado.textContent) || 0;
-        resolver();
+        const texto = resultado.textContent;
+        if (texto.includes("(") || texto.includes(")") || texto.includes("^")) {
+            resolverExpresion();
+        } else {
+            operandob = parseFloat(resultado.textContent) || 0;
+            resolver();
+        }
     }
     resta.onclick = function (e) {
         operandoa = parseFloat(resultado.textContent) || 0;
@@ -88,6 +139,32 @@ function limpiar() {
     resultado.textContent = "";
 }
 
+function calcularFuncion(tipo) {
+    let valor = parseFloat(resultado.textContent) || 0;
+    let res = 0;
+    switch (tipo) {
+        case "sin":
+            res = Math.sin(valor);
+            break;
+        case "cos":
+            res = Math.cos(valor);
+            break;
+        case "tan":
+            res = Math.tan(valor);
+            break;
+        case "sqrt":
+            res = valor >= 0 ? Math.sqrt(valor) : "Error";
+            break;
+        case "log":
+            res = valor > 0 ? Math.log10(valor) : "Error";
+            break;
+        case "ln":
+            res = valor > 0 ? Math.log(valor) : "Error";
+            break;
+    }
+    resultado.textContent = res;
+}
+
 function resolver() {
     let res = 0;
     switch (operacion) {
@@ -105,4 +182,14 @@ function resolver() {
             break;
     }
     resultado.textContent = res;
+}
+
+function resolverExpresion() {
+    let expresion = resultado.textContent.replace(/\^/g, "**");
+    try {
+        let res = Function('"use strict"; return (' + expresion + ')')();
+        resultado.textContent = Number.isFinite(res) ? res : "Error";
+    } catch (error) {
+        resultado.textContent = "Error";
+    }
 }
